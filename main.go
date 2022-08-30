@@ -11,14 +11,14 @@ var (
 	player2Distance = 0
 	rubinho         = "Rubinho"
 	lock            = sync.Mutex{}
-	distance        = 0
+	limit           = 0
 )
 
 func runPlayer1(name string) {
 	player1Distance = player1Distance + 1
 
 	if player1Distance == 250 {
-		
+
 		lock.Lock()
 		rubinho = "Rubinho arrived!"
 		lock.Unlock()
@@ -96,9 +96,9 @@ func printFunc(p1, p2 string) {
 
 func main() {
 	for {
-		distance = distance + 1
+		limit = limit + 1
 
-		if distance > 1000 {
+		if limit > 1000 {
 			fmt.Println("Race finished!")
 			break
 		}
@@ -109,9 +109,9 @@ func main() {
 
 	}
 
-	time.Sleep(1 * time.Second)
-	fmt.Printf("Race finished!The winner is...")
-	time.Sleep(4 * time.Second)
+	time.Sleep(2 * time.Second)
+	fmt.Printf("The winner is...")
+	time.Sleep(3 * time.Second)
 	printFunc("Bolt", "Flash")
-	fmt.Println("Rubinho started")
+	fmt.Println("Rubinho started!!!")
 }

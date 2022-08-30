@@ -9,13 +9,20 @@ import (
 var (
 	player1Distance = 0
 	player2Distance = 0
-	rubinho         = "Rubinho"
+	rubinho         = ""
 	lock            = sync.Mutex{}
 	limit           = 0
+	overtaking      = 0
 )
 
 func runPlayer1(name string) {
-	player1Distance = player1Distance + 1
+
+	if player1Distance == player2Distance {
+		lock.Lock()
+		overtaking += 1
+		lock.Unlock()
+	}
+	player1Distance += 1
 
 	if player1Distance == 250 {
 
@@ -52,7 +59,13 @@ func runPlayer1(name string) {
 }
 
 func runPlayer2(name string) {
-	player2Distance = player2Distance + 1
+
+	if player1Distance == player2Distance {
+		lock.Lock()
+		overtaking += 1
+		lock.Unlock()
+	}
+	player2Distance += 1
 
 	if player2Distance == 250 {
 
@@ -86,8 +99,18 @@ func runPlayer2(name string) {
 
 }
 
+func announcer(p1, p2 string) {
+	if player1Distance > player2Distance {
+		fmt.Printf("In %d, %s first! %d Kms and %s second with %d Kms\n", limit, p1, player1Distance, p2, player2Distance)
+	} else if player1Distance < player2Distance {
+		fmt.Printf("In %d, %s first! %d Kms and %s second with %d Kms\n", limit, p2, player2Distance, p1, player1Distance)
+	} else {
+		fmt.Printf("In %d, %s and %s with the same Kms, %d, %d \n", limit, p1, p2, player1Distance, player2Distance)
+	}
+}
+
 func printFunc(p1, p2 string) {
-	if player1Distance < player2Distance {
+	if player1Distance > player2Distance {
 		fmt.Printf("%s first! %d Kms\n", p1, player1Distance)
 	} else {
 		fmt.Printf("%s first! %d Kms\n", p2, player2Distance)
@@ -99,19 +122,22 @@ func main() {
 		limit = limit + 1
 
 		if limit > 1000 {
-			fmt.Println("Race finished!")
 			break
 		}
 		go runPlayer1("Bolt")
 		go runPlayer2("Flash")
+		go announcer("Bolt", "Flash")
 
 		printFunc("Bolt", "Flash")
 
 	}
 
 	time.Sleep(2 * time.Second)
-	fmt.Printf("The winner is...")
-	time.Sleep(3 * time.Second)
+	fmt.Println("Race finished!")
+	time.Sleep(1 * time.Second)
+	fmt.Printf("Overtaking %d times\n", overtaking)
+	fmt.Printf("The winner is...\n")
+	time.Sleep(2 * time.Second)
 	printFunc("Bolt", "Flash")
 	fmt.Println("Rubinho started!!!")
 }

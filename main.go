@@ -6,10 +6,15 @@ import (
 	"time"
 )
 
+type rubinhoMutex struct {
+	sync.Mutex
+	v string
+}
+
 var (
 	player1Distance = 0
 	player2Distance = 0
-	rubinho         = ""
+	rubinho         = rubinhoMutex{v: ""}
 	lock            = sync.Mutex{}
 	limit           = 0
 	overtaking      = 0
@@ -26,9 +31,9 @@ func runPlayer1(name string) {
 
 	if player1Distance == 250 {
 
-		lock.Lock()
-		rubinho = "Rubinho arrived!"
-		lock.Unlock()
+		rubinho.Lock()
+		rubinho.v = "Rubinho arrived!"
+		rubinho.Unlock()
 
 		fmt.Printf("%s: %d Kms\n", name, player1Distance)
 
@@ -36,9 +41,9 @@ func runPlayer1(name string) {
 		fmt.Printf("%s\n", rubinho)
 	} else if player1Distance == 500 {
 
-		lock.Lock()
-		rubinho = "Rubinho is ready to go!"
-		lock.Unlock()
+		rubinho.Lock()
+		rubinho.v = "Rubinho is ready to go!"
+		rubinho.Unlock()
 
 		fmt.Printf("%s: %d Kms\n", name, player1Distance)
 
@@ -46,9 +51,9 @@ func runPlayer1(name string) {
 		fmt.Printf("%s\n", rubinho)
 	} else if player1Distance == 850 {
 
-		lock.Lock()
-		rubinho = "Has anyone seen Rubinho?"
-		lock.Unlock()
+		rubinho.Lock()
+		rubinho.v = "Has anyone seen Rubinho?"
+		rubinho.Unlock()
 
 		fmt.Printf("%s: %d Kms\n", name, player1Distance)
 
@@ -69,18 +74,18 @@ func runPlayer2(name string) {
 
 	if player2Distance == 250 {
 
-		lock.Lock()
-		rubinho = "Rubinho is very excited!"
-		lock.Unlock()
+		rubinho.Lock()
+		rubinho.v = "Rubinho is very excited!"
+		rubinho.Unlock()
 
 		fmt.Printf("%s: %d Kms\n", name, player2Distance)
 		time.Sleep(1 * time.Millisecond)
 		fmt.Printf("%s\n", rubinho)
 	} else if player2Distance == 500 {
 
-		lock.Lock()
-		rubinho = "Rubinho is ready to go"
-		lock.Unlock()
+		rubinho.Lock()
+		rubinho.v = "Rubinho is ready to go"
+		rubinho.Unlock()
 
 		fmt.Printf("%s: %d Kms\n", name, player2Distance)
 		time.Sleep(1 * time.Millisecond)
@@ -88,9 +93,9 @@ func runPlayer2(name string) {
 
 	} else if player2Distance == 850 {
 
-		lock.Lock()
-		rubinho = "Where is Rubinho?"
-		lock.Unlock()
+		rubinho.Lock()
+		rubinho.v = "Where is Rubinho?"
+		rubinho.Unlock()
 
 		fmt.Printf("%s: %d Kms\n", name, player2Distance)
 		time.Sleep(1 * time.Millisecond)

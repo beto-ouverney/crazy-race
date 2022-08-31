@@ -142,7 +142,7 @@ func main() {
 	time.Sleep(1 * time.Second)
 	fmt.Printf("Overtaking %d times\n", overtaking)
 	fmt.Printf("The winner is...\n")
-	time.Sleep(2 * time.Second)
+	time.Sleep(1 * time.Second)
 	printFunc("Bolt", "Flash")
 	fmt.Println("Rubinho started!!!")
 }

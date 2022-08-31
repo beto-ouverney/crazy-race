@@ -38,7 +38,7 @@ func runPlayer1(name string) {
 		fmt.Printf("%s: %d Kms\n", name, player1Distance)
 
 		time.Sleep(1 * time.Millisecond)
-		fmt.Printf("%s\n", rubinho)
+		fmt.Printf("%s\n", rubinho.v)
 	} else if player1Distance == 500 {
 
 		rubinho.Lock()
@@ -48,7 +48,7 @@ func runPlayer1(name string) {
 		fmt.Printf("%s: %d Kms\n", name, player1Distance)
 
 		time.Sleep(1 * time.Millisecond)
-		fmt.Printf("%s\n", rubinho)
+		fmt.Printf("%s\n", rubinho.v)
 	} else if player1Distance == 850 {
 
 		rubinho.Lock()
@@ -58,7 +58,7 @@ func runPlayer1(name string) {
 		fmt.Printf("%s: %d Kms\n", name, player1Distance)
 
 		time.Sleep(1 * time.Millisecond)
-		fmt.Printf("%s\n", rubinho)
+		fmt.Printf("%s\n", rubinho.v)
 	}
 
 }
@@ -80,7 +80,7 @@ func runPlayer2(name string) {
 
 		fmt.Printf("%s: %d Kms\n", name, player2Distance)
 		time.Sleep(1 * time.Millisecond)
-		fmt.Printf("%s\n", rubinho)
+		fmt.Printf("%s\n", rubinho.v)
 	} else if player2Distance == 500 {
 
 		rubinho.Lock()
@@ -89,7 +89,7 @@ func runPlayer2(name string) {
 
 		fmt.Printf("%s: %d Kms\n", name, player2Distance)
 		time.Sleep(1 * time.Millisecond)
-		fmt.Printf("%s\n", rubinho)
+		fmt.Printf("%s\n", rubinho.v)
 
 	} else if player2Distance == 850 {
 
@@ -99,7 +99,7 @@ func runPlayer2(name string) {
 
 		fmt.Printf("%s: %d Kms\n", name, player2Distance)
 		time.Sleep(1 * time.Millisecond)
-		fmt.Printf("%s\n", rubinho)
+		fmt.Printf("%s\n", rubinho.v)
 	}
 
 }
@@ -116,9 +116,9 @@ func announcer(p1, p2 string) {
 
 func printFunc(p1, p2 string) {
 	if player1Distance > player2Distance {
-		fmt.Printf("%s first! %d Kms\n", p1, player1Distance)
+		fmt.Printf("%s is the first! %d Kms\n", p1, player1Distance)
 	} else {
-		fmt.Printf("%s first! %d Kms\n", p2, player2Distance)
+		fmt.Printf("%s is the first! %d Kms\n", p2, player2Distance)
 	}
 }
 
